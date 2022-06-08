@@ -730,9 +730,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 3
+  far clip plane: 100
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -757,8 +757,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.13412419, y: -0.46298975, z: 0.07111012, w: 0.8732667}
-  m_LocalPosition: {x: 30.480467, y: 11.585253, z: -20.665237}
+  m_LocalRotation: {x: 0.13158058, y: -0.85172105, z: 0.4379065, w: 0.25592136}
+  m_LocalPosition: {x: 9.017443, y: 19.168484, z: 10.846792}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -776,9 +776,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e863dc811b21da43b488144049f2f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1043857081}
+  target: {fileID: 0}
   targetOffset: {x: 0, y: 0, z: 0}
-  distance: 5
+  distance: 20
   maxDistance: 10000
   minDistance: 0.6
   xSpeed: 500
@@ -788,6 +788,7 @@ MonoBehaviour:
   zoomRate: 40
   panSpeed: 0.3
   zoomDampening: 5
+  groundHeight: 0
 --- !u!1 &970058922
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,7 +839,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c9cebccc74ee3b64c9133d7ba733fe8e, type: 2}
+  - {fileID: 2100000, guid: c432e816ac2c4ce4994d3210c2d66183, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -39,14 +39,23 @@ public class MaxCamera : MonoBehaviour
         Init();
     }
 
+    public float groundHeight = 0f;
+    
+    protected float CalculateDistanceFromPositionAndRotation(Vector3 pos, Quaternion rot)
+    {
+        float distance = Mathf.Abs((pos.y - groundHeight) / Mathf.Cos(Mathf.Deg2Rad * (90 - rot.eulerAngles.x)));
+        return distance;
+    }
+
     public void Init()
     {
         //If there is no target, create a temporary target at 'distance' from the cameras current viewpoint
         if (!target)
         {
-            GameObject go = new GameObject("Cam Target");
-            // new Vector3(Screen.width/2,Screen.height/2,0);
-            go.transform.position = transform.position + (transform.forward * distance);
+            distance = CalculateDistanceFromPositionAndRotation(transform.position, transform.rotation);
+            // GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cylinder);  
+            GameObject go = new GameObject("Camera Target");
+            go.transform.position = transform.position + (transform.forward.normalized * distance);
             target = go.transform;
         }
 
