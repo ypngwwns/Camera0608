@@ -29,9 +29,6 @@ public class MaxCamera : MonoBehaviour
     private Quaternion currentRotation;
     private Quaternion desiredRotation;
     
-    // private Quaternion dRotation;//用于不频繁新建Quaternion对象
-    // private Vector3 dPosition;
-
     // 旋转缓存
     private float pitch;
     private float yaw;
@@ -41,10 +38,10 @@ public class MaxCamera : MonoBehaviour
         Init();
     }
 
-    void OnEnable()
-    {
-        Init();
-    }
+    // void OnEnable()
+    // {
+    //     Init();
+    // }
     
     protected float CalculateDistanceFromPositionAndRotation(Vector3 pos, Quaternion rot)
     {
@@ -74,10 +71,6 @@ public class MaxCamera : MonoBehaviour
         distance = Vector3.Distance(transform.position, target.position);
         currentDistance = distance;
         desiredDistance = distance;
-
-        //be sure to grab the current rotations as starting points.
-        // dPosition = transform.position;
-        // dRotation = transform.rotation;
         currentRotation = transform.rotation;
         desiredRotation = transform.rotation;
 
