@@ -1,15 +1,24 @@
 ﻿using UnityEngine;
 
-[AddComponentMenu("Camera-Control/3dsMax Camera Style")]
 public class MaxCamera : MonoBehaviour
 {
-    public Transform target;
-    public Vector3 targetOffset;
-    public float distance = 5.0f;
+    
+    // 相机视角视觉中心的高度，这个高度十分重要，根据实际的使用修改，最常使用的是地面高度
+    public float groundHeight = 0f;
+    //相机的视觉中心点，这个点根据groundHeight动态生产方式比较好，因为1.在脚本中平移需要改变target的位置 2.相机根据在编辑器设置的视角去生成target，不会在运行时的时候调到另一个视角
+    private Transform target;
+    
+    // 相机与target的距离，之所以使用距离是为了较平滑的过渡
+    private float distance = 0f;
+    
+    public float minDistance = 0.6f;
+    
+    // 这个值并不是设定了就有效的，相机定好初始化位置后，如果初始化位置大于maxDistance，会重置最大距离为初始位置
     public float maxDistance = 20;
-    public float minDistance = .6f;
+  
     public float xSpeed = 200.0f;
     public float ySpeed = 200.0f;
+    
     public int yMinLimit = -80;
     public int yMaxLimit = 80;
     public int zoomRate = 40;
@@ -24,7 +33,6 @@ public class MaxCamera : MonoBehaviour
     private Quaternion desiredRotation;
     private Quaternion rotation;
     private Vector3 position;
-    private bool inited = false;
 
     private float pitch;
     private float yaw;
@@ -38,8 +46,6 @@ public class MaxCamera : MonoBehaviour
     {
         Init();
     }
-
-    public float groundHeight = 0f;
     
     protected float CalculateDistanceFromPositionAndRotation(Vector3 pos, Quaternion rot)
     {
@@ -50,14 +56,11 @@ public class MaxCamera : MonoBehaviour
     public void Init()
     {
         //If there is no target, create a temporary target at 'distance' from the cameras current viewpoint
-        if (!target)
-        {
-            distance = CalculateDistanceFromPositionAndRotation(transform.position, transform.rotation);
-            // GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cylinder);  
-            GameObject go = new GameObject("Camera Target");
-            go.transform.position = transform.position + (transform.forward.normalized * distance);
-            target = go.transform;
-        }
+        distance = CalculateDistanceFromPositionAndRotation(transform.position, transform.rotation);
+        // GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cylinder);  
+        GameObject go = new GameObject("Camera Target");
+        go.transform.position = transform.position + (transform.forward.normalized * distance);
+        target = go.transform;
 
         distance = Vector3.Distance(transform.position, target.position);
         currentDistance = distance;
@@ -85,12 +88,6 @@ public class MaxCamera : MonoBehaviour
         {
             desiredDistance -= Input.GetAxis("Mouse Y") * Time.deltaTime * zoomRate * 0.125f *
                                Mathf.Abs(desiredDistance);
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            
-            Debug.Log("yDeg");
         }
 
         // If middle mouse and left alt are selected? ORBIT
@@ -139,7 +136,7 @@ public class MaxCamera : MonoBehaviour
         currentDistance = Mathf.Lerp(currentDistance, desiredDistance, Time.deltaTime * zoomDampening);
 
         // calculate position based on the new currentDistance 
-        position = target.position - (rotation * Vector3.forward * currentDistance + targetOffset);
+        position = target.position - (rotation * Vector3.forward * currentDistance);
         transform.position = position;
         
        

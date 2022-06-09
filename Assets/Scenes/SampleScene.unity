@@ -757,8 +757,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.13158058, y: -0.85172105, z: 0.4379065, w: 0.25592136}
-  m_LocalPosition: {x: 9.017443, y: 19.168484, z: 10.846792}
+  m_LocalRotation: {x: -0.28777507, y: -0.438983, z: 0.15080364, w: -0.8376979}
+  m_LocalPosition: {x: -3.45877, y: 3.2767453, z: -2.39387}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -776,11 +776,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e863dc811b21da43b488144049f2f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  targetOffset: {x: 0, y: 0, z: 0}
-  distance: 20
-  maxDistance: 10000
+  groundHeight: 0
   minDistance: 0.6
+  maxDistance: 10000
   xSpeed: 500
   ySpeed: 200
   yMinLimit: -80
@@ -788,7 +786,6 @@ MonoBehaviour:
   zoomRate: 40
   panSpeed: 0.3
   zoomDampening: 5
-  groundHeight: 0
 --- !u!1 &970058922
 GameObject:
   m_ObjectHideFlags: 0
