@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class MaxCamera : MonoBehaviour
 {
@@ -49,7 +50,13 @@ public class MaxCamera : MonoBehaviour
         return distance;
     }
 
-    public void Init()
+    public void Reset(float groundHeight)
+    {
+        this.groundHeight = groundHeight;
+        Init();
+    }
+
+    private void Init()
     {
         //If there is no target, create a temporary target at 'distance' from the cameras current viewpoint
         distance = CalculateDistanceFromPositionAndRotation(transform.position, transform.rotation);
@@ -133,7 +140,7 @@ public class MaxCamera : MonoBehaviour
         //clamp the zoom min/max
         desiredDistance = Mathf.Clamp(desiredDistance, minDistance, maxDistance);
         // For smoothing of the zoom, lerp distance
-        currentDistance = Mathf.Lerp(currentDistance, desiredDistance, Time.deltaTime * zoomDampening);
+        currentDistance = Mathf.Lerp(currentDistance, desiredDistance, 1);
 
         // calculate position based on the new currentDistance 
         transform.position = target.position - (transform.rotation * Vector3.forward * currentDistance);
