@@ -62,8 +62,13 @@ public class MaxCamera : MonoBehaviour
             maxDistance = distance;
         }
         // GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cylinder);  
-        GameObject go = new GameObject("Camera Target");
-        go.transform.position = transform.position + (transform.forward.normalized * distance);
+        GameObject go = new GameObject("Camera Target")
+        {
+            transform =
+            {
+                position = transform.position + (transform.forward.normalized * distance)
+            }
+        };
         target = go.transform;
 
         distance = Vector3.Distance(transform.position, target.position);
