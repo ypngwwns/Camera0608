@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class MaxCamera : MonoBehaviour
 {
-    
+
+    public Transform lookAt;
     // 相机视角视觉中心的高度，这个高度十分重要，根据实际的使用修改，最常使用的是地面高度
-    public float groundHeight = 0f;
+    private float groundHeight = 0f;
     //相机的视觉中心点，这个点根据groundHeight动态生产方式比较好，因为1.在脚本中平移需要改变target的位置 2.相机根据在编辑器设置的视角去生成target，不会在运行时的时候调到另一个视角
     private Transform target;
     
@@ -50,14 +51,13 @@ public class MaxCamera : MonoBehaviour
         return distance;
     }
 
-    public void Reset(float groundHeight)
-    {
-        this.groundHeight = groundHeight;
-        Init();
-    }
-
     private void Init()
     {
+        if (lookAt != null)
+        {
+            groundHeight = lookAt.position.y;
+        }
+       
         //If there is no target, create a temporary target at 'distance' from the cameras current viewpoint
         distance = CalculateDistanceFromPositionAndRotation(transform.position, transform.rotation);
 
