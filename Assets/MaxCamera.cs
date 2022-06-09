@@ -18,22 +18,21 @@ public class MaxCamera : MonoBehaviour
   
     public float xSpeed = 200.0f;
     public float ySpeed = 200.0f;
-    
     public int yMinLimit = -80;
     public int yMaxLimit = 80;
     public int zoomRate = 40;
     public float panSpeed = 0.3f;
     public float zoomDampening = 5.0f;
 
-    private float xDeg = 0.0f;
-    private float yDeg = 0.0f;
     private float currentDistance;
     private float desiredDistance;
     private Quaternion currentRotation;
     private Quaternion desiredRotation;
-    private Quaternion rotation;
-    private Vector3 position;
+    
+    // private Quaternion dRotation;//用于不频繁新建Quaternion对象
+    // private Vector3 dPosition;
 
+    // 旋转缓存
     private float pitch;
     private float yaw;
 
@@ -57,6 +56,11 @@ public class MaxCamera : MonoBehaviour
     {
         //If there is no target, create a temporary target at 'distance' from the cameras current viewpoint
         distance = CalculateDistanceFromPositionAndRotation(transform.position, transform.rotation);
+
+        if (distance > maxDistance)
+        {
+            maxDistance = distance;
+        }
         // GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cylinder);  
         GameObject go = new GameObject("Camera Target");
         go.transform.position = transform.position + (transform.forward.normalized * distance);
@@ -67,13 +71,11 @@ public class MaxCamera : MonoBehaviour
         desiredDistance = distance;
 
         //be sure to grab the current rotations as starting points.
-        position = transform.position;
-        rotation = transform.rotation;
+        // dPosition = transform.position;
+        // dRotation = transform.rotation;
         currentRotation = transform.rotation;
         desiredRotation = transform.rotation;
 
-        // xDeg = Vector3.Angle(Vector3.right, transform.right);
-        // yDeg = Vector3.Angle(Vector3.up, transform.up);
         pitch = transform.eulerAngles.x;
         yaw = transform.eulerAngles.y;
     }
@@ -96,8 +98,8 @@ public class MaxCamera : MonoBehaviour
             Debug.Log("Input.GetAxis(Mouse X):" + Input.GetAxis("Mouse X"));
             Debug.Log("Input.GetAxis(Mouse Y):" + Input.GetAxis("Mouse Y"));
             
-            xDeg = Input.GetAxis("Mouse X") * xSpeed * 0.02f;
-            yDeg = Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+            float xDeg = Input.GetAxis("Mouse X") * xSpeed * 0.02f;
+            float yDeg = Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
 
             ////////OrbitAngle
 
@@ -113,8 +115,8 @@ public class MaxCamera : MonoBehaviour
             Debug.Log("yDeg:" + yDeg);
             Debug.Log("currentRotation:" + currentRotation);
             Debug.Log("desiredRotation:" + desiredRotation);
-            rotation = Quaternion.Lerp(currentRotation, desiredRotation, 1);
-            transform.rotation = rotation;
+            transform.rotation = Quaternion.Lerp(currentRotation, desiredRotation, 1);
+            // transform.rotation = dRotation;
            
         }
         // otherwise if middle mouse is selected, we pan by way of transforming the target in screenspace
@@ -136,8 +138,8 @@ public class MaxCamera : MonoBehaviour
         currentDistance = Mathf.Lerp(currentDistance, desiredDistance, Time.deltaTime * zoomDampening);
 
         // calculate position based on the new currentDistance 
-        position = target.position - (rotation * Vector3.forward * currentDistance);
-        transform.position = position;
+        transform.position = target.position - (transform.rotation * Vector3.forward * currentDistance);
+        // transform.position = dPosition;
         
        
     }
