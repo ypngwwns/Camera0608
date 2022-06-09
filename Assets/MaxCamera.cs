@@ -35,15 +35,15 @@ public class MaxCamera : MonoBehaviour
     private float pitch;
     private float yaw;
 
-    void Start()
-    {
-        Init();
-    }
-
-    // void OnEnable()
+    // void Start()
     // {
     //     Init();
     // }
+
+    void OnEnable()
+    {
+        Init();
+    }
     
     protected float CalculateDistanceFromPositionAndRotation(Vector3 pos, Quaternion rot)
     {
