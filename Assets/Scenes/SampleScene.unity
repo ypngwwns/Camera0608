@@ -962,8 +962,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b925ba490bfa449b62d2a05a0de5b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cinemachineVirtualCamera1: {fileID: 1402511545}
-  cinemachineVirtualCamera2: {fileID: 2074954501}
+  cinemachineVirtualCamera1: {fileID: 1402511544}
+  cinemachineVirtualCamera2: {fileID: 2074954500}
 --- !u!4 &549763207
 Transform:
   m_ObjectHideFlags: 0
@@ -2526,7 +2526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e863dc811b21da43b488144049f2f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAt: {fileID: 0}
+  lookAt: {fileID: 2145833393}
   minDistance: 0.6
   maxDistance: 20
   xSpeed: 200
