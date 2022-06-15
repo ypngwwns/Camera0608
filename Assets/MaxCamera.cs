@@ -176,14 +176,15 @@ public class MaxCamera : ActionBase
             maxDistance = distance;
         }
         // GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cylinder);  
-        GameObject go = new GameObject("Camera Target")
-        {
-            transform =
-            {
-                position = transform.position + (transform.forward.normalized * distance)
-            }
-        };
-        target = go.transform;
+        // GameObject go = new GameObject("Camera Target")
+        // {
+        //     transform =
+        //     {
+        //         position = transform.position + (transform.forward.normalized * distance)
+        //     }
+        // };
+        target.position = transform.position + (transform.forward.normalized * distance);
+        target.rotation = Quaternion.identity;
 
         distance = Vector3.Distance(transform.position, target.position);
         currentDistance = distance;
