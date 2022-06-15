@@ -36,10 +36,8 @@ public class MaxCamera : ActionBase
     private float pitch;
     private float yaw;
     
-    // void Start()
-    // {
-    //     Init();
-    // }
+    private Vector2 lastTouchPoint = Vector2.zero;
+    
     
     protected float CalculateDistanceFromPositionAndRotation(Vector3 pos, Quaternion rot)
     {
@@ -136,6 +134,65 @@ public class MaxCamera : ActionBase
             target.Translate(Vector3.right * -Input.GetAxis("Mouse X") * panSpeed);
             target.Translate(transform.up * -Input.GetAxis("Mouse Y") * panSpeed, Space.World);
         }
+        
+        //单点拖动
+        if (Input.touchCount ==1 && Input.GetTouch(0).phase == TouchPhase.Moved) {//单手指移动
+            var deltaposition = Input.GetTouch(0).deltaPosition;
+            target.rotation = transform.rotation;
+            target.Translate(Vector3.right * - deltaposition.x * panSpeed);
+            target.Translate(transform.up * - deltaposition.y * panSpeed, Space.World);
+    
+        }
+        //双指旋转  && 缩放
+        else  if (2 <= Input.touchCount)
+        {
+            //Debug.Log("单点触摸， 水平上下旋转  ");
+            // Touch touch = Input.GetTouch(0);
+            // Vector2 deltaPos = touch.deltaPosition;//位置增量
+            //
+            // if (Mathf.Abs(deltaPos.x) >=3 || Mathf.Abs(deltaPos.y) >= 3)
+            // {
+            //    
+            //     transform.Rotate(Vector3.down * deltaPos.x, Space.World);//绕y轴旋转
+            //     transform.Rotate(Vector3.right * deltaPos.y, Space.World);//绕x轴
+            // }
+
+            //缩放
+            // newTouch1 = Input.GetTouch(0);//
+            // newTouch2 = Input.GetTouch(1);
+            // if (newTouch2.phase == TouchPhase.Began)
+            // {
+            //     oldTouch2 = newTouch2;
+            //     oldTouch1 = newTouch1;
+            //     return;
+            // }
+            // float oldDistance = Vector2.Distance(oldTouch1.position, oldTouch2.position);//计算两点距离
+            // float newDistance = Vector2.Distance(newTouch1.position, newTouch2.position);//计算两点距离
+            // float offset = newDistance - oldDistance;
+            //
+            //
+            // if (Mathf.Abs(offset)>=3)
+            // {
+            //     Debug.Log(offset);
+            //     //放大因子， 一个像素按 0.01倍来算(100可调整)  
+            //     float scaleFactor = offset / 100f;
+            //     Vector3 localScale = transform.localScale;
+            //     Vector3 scale = new Vector3(localScale.x + scaleFactor,
+            //                                 localScale.y + scaleFactor,
+            //                                 localScale.z + scaleFactor);
+            //
+            //     //最小缩放到 0.3 倍 最大1.5倍 
+            //     if (scale.x > 0.3f && scale.x < 1.5f)
+            //     {
+            //         transform.localScale = scale;//赋新值
+            //     }
+            //
+            //     //记住最新的触摸点，下次使用  
+            //     oldTouch1 = newTouch1;
+            //     oldTouch2 = newTouch2;
+            // }
+          
+        }
 
         ////////Orbit Position
 
@@ -213,4 +270,22 @@ public class MaxCamera : ActionBase
         GameEvent.StartCameraControl -= StartCameraControl;
         GameEvent.StopCameraControl -= StopCameraControl;
     }
+    
+    private float getPinchDistance(Vector2 pointA, Vector2 pointB) {
+        // Return the distance between the two points
+        var dx = pointA.x - pointB.x;
+        var dy = pointA.y - pointB.y;    
+    
+        return Mathf.Sqrt((dx * dx) + (dy * dy));
+    }
+    
+    private void calcMidPoint(Vector2 pointA, Vector2 pointB, out Vector2 result) {
+        result = default;
+        result.Set(pointB.x - pointA.x, pointB.y - pointA.y);
+        result.Scale(new Vector2(0.5f, 0.5f));
+        result.x += pointA.x;
+        result.y += pointA.y;
+    }
+    
+    
 }
