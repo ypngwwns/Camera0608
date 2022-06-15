@@ -4,7 +4,7 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ResetMaxCamera : MonoBehaviour
+public class CinemachineResetCamera : MonoBehaviour
 {
     public GameObject cinemachineVirtualCamera1;
     public GameObject cinemachineVirtualCamera2;

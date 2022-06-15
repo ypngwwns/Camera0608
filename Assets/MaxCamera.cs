@@ -42,6 +42,7 @@ public class MaxCamera : MonoBehaviour
 
     void OnEnable()
     {
+        Debug.Log("MaxCamera OnEnable");
         Init();
     }
     
