@@ -1431,7 +1431,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e863dc811b21da43b488144049f2f9d, type: 3}
   m_Name: 
@@ -2197,7 +2197,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1402511546}
   - component: {fileID: 1402511545}
-  - component: {fileID: 1402511547}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -2255,28 +2254,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1402511547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1402511544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e863dc811b21da43b488144049f2f9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lookAt: {fileID: 0}
-  minDistance: 0.6
-  maxDistance: 20
-  xSpeed: 200
-  ySpeed: 200
-  yMinLimit: 5
-  yMaxLimit: 80
-  zoomRate: 40
-  panSpeed: 0.3
-  zoomDampening: 5
 --- !u!1 &1801703876
 GameObject:
   m_ObjectHideFlags: 0
@@ -2517,7 +2494,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2074954502}
   - component: {fileID: 2074954501}
-  - component: {fileID: 2074954503}
   m_Layer: 0
   m_Name: CM vcam2
   m_TagString: Untagged
@@ -2575,28 +2551,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2074954503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2074954500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e863dc811b21da43b488144049f2f9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lookAt: {fileID: 2145833393}
-  minDistance: 0.6
-  maxDistance: 20
-  xSpeed: 200
-  ySpeed: 200
-  yMinLimit: -80
-  yMaxLimit: 80
-  zoomRate: 40
-  panSpeed: 0.3
-  zoomDampening: 5
 --- !u!1 &2145833389
 GameObject:
   m_ObjectHideFlags: 0
