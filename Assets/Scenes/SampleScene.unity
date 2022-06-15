@@ -993,7 +993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 963194227}
   "\u4F4D\u7F6E1": {fileID: 1043857081}
-  "\u4F4D\u7F6E2": {fileID: 464575966}
+  "\u4F4D\u7F6E2": {fileID: 2145833393}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2490,7 +2490,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1929913469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03b8ef667ef4ef8a564617c6727b844, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ea4cee6f559495887cc8c42fb8621da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1929913471

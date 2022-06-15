@@ -138,7 +138,7 @@ public class CameraRover : ActionBase
         isLookAt = true;
         
         Vector3 dir = transform.position - viewPos;
-        dir.y = 0;
+        dir.y =viewPos.y;
         Vector3 cameraPos = viewPos + dir.normalized * 20f + new Vector3(0f, 12f, 0f);
         transform.DOMove(cameraPos, 1.5f);
         yield return new WaitForSeconds(1.5f);
