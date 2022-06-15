@@ -143,7 +143,7 @@ public class CameraRover : ActionBase
         transform.DOMove(cameraPos, 1.5f);
         yield return new WaitForSeconds(1.5f);
         isLookAt = false;
-        ActionCenter.Instance.DoAction(GameEvent.StartCameraControl);
+        ActionCenter.Instance.DoAction(GameEvent.StartCameraControl,targetPos);
     }
 
     //主场景

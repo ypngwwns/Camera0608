@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class MaxCamera : MonoBehaviour
+public class MaxCamera : ActionBase
 {
 
     public Transform lookAt;
@@ -32,19 +32,14 @@ public class MaxCamera : MonoBehaviour
     private Quaternion desiredRotation;
     
     // 旋转缓存
+    private bool isCameraCtrl = false;           //相机是否可控制
     private float pitch;
     private float yaw;
-
+    
     // void Start()
     // {
     //     Init();
     // }
-
-    void OnEnable()
-    {
-        Debug.Log("MaxCamera OnEnable");
-        Init();
-    }
     
     protected float CalculateDistanceFromPositionAndRotation(Vector3 pos, Quaternion rot)
     {
@@ -52,11 +47,15 @@ public class MaxCamera : MonoBehaviour
         return distance;
     }
 
-    private void Init()
+    public override void Init()
     {
         if (lookAt != null)
         {
             groundHeight = lookAt.position.y;
+        }
+        else
+        {
+            groundHeight = 0f;
         }
        
         //If there is no target, create a temporary target at 'distance' from the cameras current viewpoint
@@ -91,6 +90,10 @@ public class MaxCamera : MonoBehaviour
      */
     void LateUpdate()
     {
+        if (!isCameraCtrl)
+        {
+            return;
+        }
         // If Control and Alt and Middle button? ZOOM!
         if (Input.GetMouseButton(2))
         {
@@ -157,5 +160,56 @@ public class MaxCamera : MonoBehaviour
         if (angle > 360)
             angle -= 360;
         return Mathf.Clamp(angle, min, max);
+    }
+    
+    //开启相机控制
+    void StartCameraControl(Vector3 vector3 = default)
+    {
+        isCameraCtrl = true;
+        groundHeight = vector3.y;
+       
+        //If there is no target, create a temporary target at 'distance' from the cameras current viewpoint
+        distance = CalculateDistanceFromPositionAndRotation(transform.position, transform.rotation);
+
+        if (distance > maxDistance)
+        {
+            maxDistance = distance;
+        }
+        // GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cylinder);  
+        GameObject go = new GameObject("Camera Target")
+        {
+            transform =
+            {
+                position = transform.position + (transform.forward.normalized * distance)
+            }
+        };
+        target = go.transform;
+
+        distance = Vector3.Distance(transform.position, target.position);
+        currentDistance = distance;
+        desiredDistance = distance;
+        currentRotation = transform.rotation;
+        desiredRotation = transform.rotation;
+
+        pitch = transform.eulerAngles.x;
+        yaw = transform.eulerAngles.y;
+    }
+
+    //停止相机控制
+    void StopCameraControl()
+    {
+        isCameraCtrl = false;
+    }
+
+    public override void RegisterAction()
+    {
+        GameEvent.StartCameraControl += StartCameraControl;
+        GameEvent.StopCameraControl += StopCameraControl;
+    }
+
+    public override void RemoveAction()
+    {
+        GameEvent.StartCameraControl -= StartCameraControl;
+        GameEvent.StopCameraControl -= StopCameraControl;
     }
 }
